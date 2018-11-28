@@ -10,8 +10,8 @@ public class Video {
 	private int numeroReproducciones;
 	private List<Etiqueta> etiquetas;
 
-	public Video(/* int codigo, */ String url, String titulo, Etiqueta... etiquetas) {
-		this.codigo = 0;
+	public Video(int codigo, String url, String titulo, Etiqueta... etiquetas) {
+		this.codigo = codigo;
 		this.url = url;
 		this.titulo = titulo;
 		for (Etiqueta etiqueta : etiquetas) {
@@ -56,12 +56,10 @@ public class Video {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
 	public void setNumeroReproducciones(Integer numeroReproducciones) {
 		this.numeroReproducciones = numeroReproducciones;
 	}
-
-	public void addEtiquetas(Etiqueta etiqueta) {
+	public void addEtiquetas(Etiqueta etiqueta){
 		this.etiquetas.add(etiqueta);
 	}
 }

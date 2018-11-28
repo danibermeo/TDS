@@ -7,8 +7,6 @@ public class ListaVideos {
 	private String nombreLista;
 	private int numeroVideos;
 	private LinkedList<Video> videos;
-	// Debemos crear la lista con el codigo si despues se la paso con el set
-	// duda
 
 	public ListaVideos(String nombreLista, Video... videos) {
 		this.nombreLista = nombreLista;
@@ -16,11 +14,6 @@ public class ListaVideos {
 			this.videos.add(video);
 		}
 		this.numeroVideos = this.videos.size();
-		this.codigo = 0;
-	}
-
-	public void addVideo(Video video) {
-		this.videos.add(video);
 	}
 
 	public String getNombreLista() {

@@ -22,7 +22,6 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 	private static ServicioPersistencia servPersistencia;
 	private static AdaptadorUsuarioTDS unicaInstancia = null;
 	private SimpleDateFormat dateFormat;
-
 	public static AdaptadorUsuarioTDS getUnicaInstancia() {
 		if (unicaInstancia == null)
 			return new AdaptadorUsuarioTDS();
@@ -72,7 +71,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		)));
 
 		eUsuario = servPersistencia.registrarEntidad(eUsuario);
-		usuario.setCodigo(eUsuario.getId());
+		usuario.setCodigo(usuario.getCodigo());
 		return eUsuario.getId();
 
 	}
@@ -107,11 +106,11 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		servPersistencia.anadirPropiedadEntidad(eUsuario, "premium", String.valueOf(usuario.isPremium()));
 		servPersistencia.eliminarPropiedadEntidad(eUsuario, "usuario");
 		servPersistencia.anadirPropiedadEntidad(eUsuario, "usuario", usuario.getNombreUsuario());
-		servPersistencia.eliminarPropiedadEntidad(eUsuario, "fechaNacimiento");
-		servPersistencia.anadirPropiedadEntidad(eUsuario, "fechaNacimiento",
+		servPersistencia.eliminarPropiedadEntidad(eUsuario, "fechaNaciemto");
+		servPersistencia.anadirPropiedadEntidad(eUsuario, "fechaNaciento",
 				String.valueOf(dateFormat.format(usuario.getFechaNacimiento().getDate())));
 		servPersistencia.eliminarPropiedadEntidad(eUsuario, "listasVideos");
-		servPersistencia.eliminarPropiedadEntidad(eUsuario, "listaReciente");
+		servPersistencia.eliminarPropiedadEntidad(eUsuario, "listaReceintes");
 		servPersistencia.anadirPropiedadEntidad(eUsuario, "listaReciente",
 				obtenerCodigosVideosDeLista(usuario.getListaReciente()));
 		servPersistencia.eliminarPropiedadEntidad(eUsuario, "listasVideos");
@@ -137,15 +136,7 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 			return (Usuario) PoolDAO.getUnicaInstancia().getObjeto(codigo);
 		}
 		// si no esta la recupero de la base de datos
-		Entidad eUsuario = null;
-
-		try {
-			eUsuario = servPersistencia.recuperarEntidad(codigo);
-
-		} catch (NullPointerException e) {
-			System.err.println("Adaptador Usuario");
-		}
-
+		Entidad eUsuario = servPersistencia.recuperarEntidad(codigo);
 		String nombreUsuario = servPersistencia.recuperarPropiedadEntidad(eUsuario, "usuario");
 		String password = servPersistencia.recuperarPropiedadEntidad(eUsuario, "password");
 		// datos usuario
@@ -171,11 +162,12 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		// IMPORTANTE:añadir el usuario al pool antes de llamar a otros
 		// adaptadores
 
+		PoolDAO.getUnicaInstancia().addObjeto(codigo, usuario);
 		// recuperar propiedades que son objetos llamando a adaptadores
 		// ventas
 		List<Video> recienteVideos = new LinkedList<>();
 		recienteVideos = obtenerVideosDesdeCodigos(
-				servPersistencia.recuperarPropiedadEntidad(eUsuario, "listaReciente"));
+				servPersistencia.recuperarPropiedadEntidad(eUsuario, "recientesViddeos"));
 		for (Video video : recienteVideos) {
 			usuario.addRecienteVideos(video);
 		}
@@ -185,7 +177,6 @@ public class AdaptadorUsuarioTDS implements IAdaptadorUsuarioDAO {
 		for (ListaVideos listaVideos : listasVideos) {
 			usuario.addListaAListaVideos(listaVideos);
 		}
-		PoolDAO.getUnicaInstancia().addObjeto(codigo, usuario);
 		return usuario;
 	}
 

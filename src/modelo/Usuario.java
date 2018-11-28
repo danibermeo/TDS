@@ -26,7 +26,6 @@ public class Usuario {
 	public Usuario(String login, String passwd, String nombre, String apellidos, String email, JDateChooser fecha,
 			Boolean premiun) {
 		// this.codigo = codigo;
-		this.codigo = 0;
 		this.usuario = login;
 		this.password = passwd;
 		this.nombre = nombre;
