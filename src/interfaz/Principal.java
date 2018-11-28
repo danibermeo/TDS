@@ -4,15 +4,23 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import com.sun.prism.Image;
+
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.CardLayout;
+import java.awt.Color;
 
 public class Principal {
 
@@ -59,17 +67,35 @@ public class Principal {
 		gbl_PanelTop.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		PanelTop.setLayout(gbl_PanelTop);
 		
-		//Panel en el norte
-		JLabel lblAppvideo = new JLabel("AppVideo");
-		GridBagConstraints gbc_lblAppvideo = new GridBagConstraints();
-		gbc_lblAppvideo.gridwidth = 10;
-		gbc_lblAppvideo.fill = GridBagConstraints.BOTH;
-		gbc_lblAppvideo.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAppvideo.gridx = 1;
-		gbc_lblAppvideo.gridy = 0;
-		PanelTop.add(lblAppvideo, gbc_lblAppvideo);
+		JButton b1 = new JButton("");
+		b1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		
+		ImageIcon unaImagen = new ImageIcon("imagenes/imagen1.png");
+	
+		b1.setIcon(unaImagen); 
+		
+		
+
+	/*	try {
+				imgamen1 = ImageIO.read(getClass().getResource("/imagenes/imagen1.png"));
+			
+		            b1.setIcon(new ImageIcon());
+		} catch (IOException e) {
+		            e.printStackTrace();
+		}*/
+		
+		
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton.gridx = 5;
+		gbc_btnNewButton.gridy = 1;
+		PanelTop.add(b1, gbc_btnNewButton);
 		
 		JButton btnRegistro = new JButton("Registro");
+		btnRegistro.setForeground(new Color(139, 0, 139));
 		GridBagConstraints gbc_btnRegistro = new GridBagConstraints();
 		gbc_btnRegistro.insets = new Insets(0, 0, 5, 5);
 		gbc_btnRegistro.gridx = 11;
@@ -77,6 +103,7 @@ public class Principal {
 		PanelTop.add(btnRegistro, gbc_btnRegistro);
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.setForeground(new Color(0, 100, 0));
 		GridBagConstraints gbc_btnLogin = new GridBagConstraints();
 		gbc_btnLogin.insets = new Insets(0, 0, 5, 5);
 		gbc_btnLogin.gridx = 12;
@@ -85,6 +112,7 @@ public class Principal {
 		
 		
 		JButton btnLogout = new JButton("Logout");
+		btnLogout.setForeground(Color.BLUE);
 		GridBagConstraints gbc_btnLogout = new GridBagConstraints();
 		gbc_btnLogout.insets = new Insets(0, 0, 5, 5);
 		gbc_btnLogout.gridx = 15;
@@ -92,6 +120,7 @@ public class Principal {
 		PanelTop.add(btnLogout, gbc_btnLogout);
 		
 		JButton btnPremium = new JButton("Premium");
+		btnPremium.setForeground(Color.RED);
 		GridBagConstraints gbc_btnPremium = new GridBagConstraints();
 		gbc_btnPremium.insets = new Insets(0, 0, 5, 5);
 		gbc_btnPremium.gridx = 17;
